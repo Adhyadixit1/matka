@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import BurgerMenu from "@/components/BurgerMenu";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -175,7 +176,7 @@ const Index = () => {
       <header className="bg-primary text-primary-foreground shadow-md">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
                 <span className="text-primary font-bold text-xl">MG</span>
               </div>
@@ -185,15 +186,14 @@ const Index = () => {
               <Badge variant="secondary" className="bg-white text-primary">
                 ₹ {walletBalance.toFixed(2)}
               </Badge>
-              <Link to="/profile" className="text-sm text-primary-foreground/80 hover:text-primary-foreground underline">
-                Profile
-              </Link>
+              <BurgerMenu />
               {isAdmin && (
                 <Link to="/admin" className="text-sm text-primary-foreground/80 hover:text-primary-foreground underline">
                   Admin
                 </Link>
               )}
             </div>
+            {/* close justify-between */}
           </div>
         </div>
       </header>

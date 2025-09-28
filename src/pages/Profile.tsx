@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BurgerMenu from "@/components/BurgerMenu";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, LogOut, Wallet, Download, Upload, History } from "lucide-react";
+import { Loader2, Wallet, Download, Upload, History } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface OverviewRow {
@@ -74,8 +75,8 @@ export default function Profile() {
     try {
       const userId = uid || profileId;
       if (!userId) return;
-      const { data, error } = await supabase
-        .from('wallets')
+      const { data, error } = await (supabase.from as any)
+        ('wallets')
         .select('deposited_amount, winnings_amount')
         .eq('user_id', userId)
         .single();
@@ -95,8 +96,8 @@ export default function Profile() {
     try {
       const userId = uid || profileId;
       if (!userId) return;
-      const { data, error } = await supabase
-        .from('transactions')
+      const { data, error } = await (supabase.from as any)
+        ('transactions')
         .select('id, type, amount, status, created_at, details')
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
@@ -189,9 +190,7 @@ export default function Profile() {
           </div>
           <div className="flex items-center gap-2">
             <Button variant="secondary" className="text-primary" onClick={() => navigate('/home')}>Home</Button>
-            <Button variant="ghost" onClick={onLogout}>
-              <LogOut className="h-4 w-4 mr-2" /> Logout
-            </Button>
+            <BurgerMenu />
           </div>
         </div>
       </header>
@@ -211,17 +210,17 @@ export default function Profile() {
               <div className="grid gap-4 sm:grid-cols-3">
                 <div className="p-4 rounded-lg border bg-white">
                   <div className="text-sm text-gray-500">Total Wallet Balance</div>
-                  <div className="text-2xl font-bold">₹ {walletBalance.toFixed(2)}</div>
+                  <div className="text-2xl font-bold">₹ {Number(walletBalance).toFixed(2)}</div>
                   <Badge variant="default" className="mt-2">Live</Badge>
                 </div>
                 <div className="p-4 rounded-lg border bg-white">
                   <div className="text-sm text-gray-500">Deposited Balance</div>
-                  <div className="text-2xl font-bold">₹ {walletsDeposited.toFixed(2)}</div>
+                  <div className="text-2xl font-bold">₹ {Number(walletsDeposited).toFixed(2)}</div>
                   <Badge variant="secondary" className="mt-2">Tracked from deposits</Badge>
                 </div>
                 <div className="p-4 rounded-lg border bg-white">
                   <div className="text-sm text-gray-500">Winnings Balance</div>
-                  <div className="text-2xl font-bold">₹ {walletsWinnings.toFixed(2)}</div>
+                  <div className="text-2xl font-bold">₹ {Number(walletsWinnings).toFixed(2)}</div>
                   <Badge variant="default" className="mt-2">Tracked from wins</Badge>
                 </div>
               </div>
