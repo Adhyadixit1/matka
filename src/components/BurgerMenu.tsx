@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetOverlay, SheetPortal } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -77,11 +77,11 @@ export default function BurgerMenu() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Menu">
+        <Button variant="ghost" size="icon" aria-label="Menu" className="z-50">
           <Menu className="w-6 h-6" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="p-0 w-80">
+      <SheetContent side="left" className="p-0 w-80 z-[100]">
         <SheetHeader className="p-6 bg-primary text-primary-foreground">
           <div className="flex items-center gap-3">
             <Avatar>

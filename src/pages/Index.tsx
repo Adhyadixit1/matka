@@ -171,9 +171,9 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-matka-orange-light to-white">
-      {/* Header */}
-      <header className="bg-primary text-primary-foreground shadow-md">
+    <div className="min-h-screen bg-gradient-to-br from-matka-orange-light to-white flex flex-col">
+      {/* Fixed Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground shadow-md">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -193,17 +193,17 @@ const Index = () => {
                 </Link>
               )}
             </div>
-            {/* close justify-between */}
           </div>
         </div>
       </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-6">
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Famous Matka Books</h2>
-          <p className="text-gray-600">Select your favorite matka book to view results and start playing</p>
-        </div>
+      
+      {/* Main content with padding to account for fixed header and bottom nav */}
+      <main className="flex-1 pt-24 pb-24 overflow-y-auto">
+        <div className="container mx-auto px-4">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">Famous Matka Books</h2>
+            <p className="text-gray-600">Select your favorite matka book to view results and start playing</p>
+          </div>
 
         {/* Matka Books Grid */}
         <div className="grid gap-4 md:gap-6">
@@ -273,10 +273,11 @@ const Index = () => {
           ))}
         </div>
 
-        {/* Footer Info */}
-        <div className="mt-12 text-center text-sm text-gray-600">
-          <p className="mb-2">⚠️ Play responsibly. This is a demo application for educational purposes only.</p>
-          <p>Market timings are indicative and may vary. Please check official sources for accurate information.</p>
+          {/* Footer Info */}
+          <div className="mt-12 text-center text-sm text-gray-600">
+            <p className="mb-2">⚠️ Play responsibly. This is a demo application for educational purposes only.</p>
+            <p>Market timings are indicative and may vary. Please check official sources for accurate information.</p>
+          </div>
         </div>
       </main>
     </div>
