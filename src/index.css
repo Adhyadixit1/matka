@@ -197,10 +197,36 @@ All colors MUST be HSL.
 @layer base {
   * {
     @apply border-border;
+    /* Better touch handling for web views */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-overflow-scrolling: touch;
   }
 
-  body {
+  html, body {
     @apply bg-background text-foreground;
+    /* Prevent overscroll bounce on iOS */
+    overscroll-behavior-y: none;
+    /* Ensure full height */
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Main app container */
+  #root {
+    height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+  }
+
+  /* Better scrolling for webkit browsers */
+  @supports (-webkit-touch-callout: none) {
+    #root {
+      height: -webkit-fill-available;
+    }
   }
 }
 

@@ -80,8 +80,30 @@ function ChatIcon() {
 }
 
 const BottomNav = () => {
+  // Prevent touch events from interfering with scrolling
+  const handleTouchStart = (e: React.TouchEvent) => {
+    // Don't prevent default on the actual links/buttons
+    if ((e.target as HTMLElement).tagName === 'A' || 
+        (e.target as HTMLElement).tagName === 'BUTTON') {
+      return;
+    }
+    // Prevent default for other touch events to avoid scroll jank
+    e.preventDefault();
+  };
+
   return (
-    <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-[hsl(var(--border))] safe-bottom shadow-[var(--shadow-card)]">
+    <nav 
+      className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-[hsl(var(--border))] safe-bottom shadow-[var(--shadow-card)]"
+      style={{
+        // Use transform for better performance
+        transform: 'translateZ(0)',
+        // Ensure it's above other content
+        willChange: 'transform',
+        // Prevent iOS rubber banding
+        overscrollBehavior: 'none'
+      }}
+      onTouchStart={handleTouchStart}
+    >
       <ul className="grid grid-cols-4 gap-1 px-2 py-1">
         <li>
           <NavLink
